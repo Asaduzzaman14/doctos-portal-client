@@ -1,12 +1,14 @@
 import React from 'react';
 import auth from '../../firebase.init';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { appendErrors, useForm } from 'react-hook-form';
+import Loading from '../Shared/Loading';
 
 
 
 const Login = () => {
     const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [signInWithEmailAndPassword, GoogleUser, Googleloading, GoogleError,] = useSignInWithEmailAndPassword(auth);
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
@@ -14,8 +16,20 @@ const Login = () => {
         console.log(user);
     }
 
+    if (loading || Googleloading) {
+        return <Loading></Loading>
+    }
+
+
+    let signInError
+    if (error || GoogleError) {
+
+        signInError = <small className='text-red-500'>{error?.message || GoogleError?.message}</small>
+    }
+
     const onSubmit = data => {
         console.log(data)
+        signInWithEmailAndPassword(data.email, data.password)
     };
 
 
@@ -97,8 +111,7 @@ const Login = () => {
 
 
 
-                        <input {...register("lastName", { pattern: /^[A-Za-z]+$/i })} />
-                        <input type="number" {...register("age", { min: 18, max: 99 })} />
+                        {signInError}
                         <input type="submit" value={'LOGIN'} className='btn w-full text-white' />
                     </form>
 
