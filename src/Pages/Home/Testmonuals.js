@@ -50,6 +50,7 @@ const Testmonuals = () => {
                 {
                     reviews.map(review => <Review
                         review={review}
+                        key={review._id}
                     ></Review>)
                 }
             </div>

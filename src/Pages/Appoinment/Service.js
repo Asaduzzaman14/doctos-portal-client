@@ -3,9 +3,9 @@ import React from 'react';
 const Service = ({ service, setTreetment }) => {
     const { name, slots } = service
     return (
-        <div class="card lg:max-w-lg bg-base-100 shadow-xl">
-            <div class="card-body">
-                <h2 class="card-title text-secondary">{name}</h2>
+        <div className="card lg:max-w-lg bg-base-100 shadow-xl">
+            <div className="card-body">
+                <h2 className="card-title text-secondary">{name}</h2>
                 <p className='text-red-500'>
                     {
                         !slots.length ? "Try another date" : ''
@@ -15,10 +15,10 @@ const Service = ({ service, setTreetment }) => {
 
                 <p>{slots.length} {!slots.length ? 'SPACE' : 'SPACES'} AVALILABLE</p>
 
-                <div class="card-actions justify-center">
+                <div className="card-actions justify-center">
 
 
-                    <label onClick={() => setTreetment(service)} for="booking-modal" class="btn btn-secondary text-white  modal-button">Book Appointment</label>
+                    <label onClick={() => setTreetment(service)} for="booking-modal" className="btn btn-secondary text-white  modal-button">Book Appointment</label>
 
                 </div>
             </div>

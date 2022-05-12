@@ -9,11 +9,11 @@ const ContuctUs = () => {
             <h4 className='text-primary text-2xl'>Contuct us</h4>
             <h2 className='text-white text-4xl mb-3'>Stay connected with us</h2>
             <div>
-                <input type="text" placeholder="Your Email" class="input input-bordered input-md w-full max-w-xs mb-4" />
+                <input type="text" placeholder="Your Email" className="input input-bordered input-md w-full max-w-xs mb-4" />
                 <br />
-                <input type="text" placeholder="Subject" class="input input-bordered input-md w-full max-w-xs mb-4" />
+                <input type="text" placeholder="Subject" className="input input-bordered input-md w-full max-w-xs mb-4" />
                 <br />
-                <textarea class="textarea  w-full max-w-xs mb-6" placeholder="Your Message"></textarea>
+                <textarea className="textarea  w-full max-w-xs mb-6" placeholder="Your Message"></textarea>
                 <HomeButton>Submit</HomeButton>
             </div>
         </div>
