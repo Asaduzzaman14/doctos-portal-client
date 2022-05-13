@@ -47,9 +47,7 @@ const Signup = () => {
         console.dir(data)
         await createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({ displayName: data.name })
-
-        console.log('profile updated');
-        navigate('/appoinment')
+        navigate('/')
     };
 
 

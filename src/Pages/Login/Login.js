@@ -1,45 +1,44 @@
 import React from 'react';
 import auth from '../../firebase.init';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { appendErrors, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Loading from '../Shared/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 
 const Login = () => {
-    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-    const [signInWithEmailAndPassword, googleUser, Googleloading, GoogleError,] = useSignInWithEmailAndPassword(auth);
-
+    const [signInWithGoogle, googleUser, Googleloading, GoogleError] = useSignInWithGoogle(auth);
+    const [signInWithEmailAndPassword, user, loading, error,] = useSignInWithEmailAndPassword(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
 
-    if (user) {
-        console.log(user);
-    }
+
+    let signInError;
+    const navigate = useNavigate()
+    const location = useLocation()
+    let from = location.state?.from?.pathname || "/";
+
+
+
 
     if (loading || Googleloading) {
         return <Loading></Loading>
     }
-
-
-    let signInError
     if (error || GoogleError) {
-
         signInError = <small className='text-red-500'>{error?.message || GoogleError?.message}</small>
     }
 
 
-    if (user || googleUser) {
-        console.log(user, googleUser);
-
-    }
-
     const onSubmit = data => {
-        console.log(data)
         signInWithEmailAndPassword(data.email, data.password)
     };
 
+    if (user || googleUser) {
+        console.log('user', user.user);
+        navigate(from, { replace: true });
 
+
+    }
 
     return (
 
