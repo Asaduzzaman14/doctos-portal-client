@@ -114,8 +114,8 @@ const Login = () => {
                                 class="input input-bordered w-full max-w-xs"
                             />
                             <label class="label">
-                                {errors.password?.type === 'required' && <apan className='label-text-alt text-red-500'>{errors.password.message}</apan>}
-                                {errors.password?.type === 'minLength' && <apan className='label-text-alt text-red-500'>{errors.password.message}</apan>}
+                                {errors.password?.type === 'required' && <span className='label-text-alt text-red-500'>{errors.password.message}</span>}
+                                {errors.password?.type === 'minLength' && <span className='label-text-alt text-red-500'>{errors.password.message}</span>}
                             </label>
 
                         </div>

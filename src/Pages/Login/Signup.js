@@ -1,9 +1,9 @@
 import React from 'react';
 import auth from '../../firebase.init';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import Loading from '../Shared/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
@@ -17,32 +17,39 @@ const Signup = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
+    const navigate = useNavigate()
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     if (user) {
-        console.log(user);
+        console.dir(user);
     }
 
-    if (loading || googleLoading) {
+    if (loading || googleLoading || updating) {
         return <Loading></Loading>
     }
 
 
     let signInError
-    if (error || googleError) {
+    if (error || googleError || updateError) {
 
         signInError = <small className='text-red-500'>{error?.message || googleError?.message}</small>
     }
 
 
     if (user || googleUser) {
-        console.log(user, googleUser);
+        console.dir(user, googleUser);
 
     }
 
-    const onSubmit = data => {
-        console.log(data)
-        createUserWithEmailAndPassword(data.email, data.password)
+    const onSubmit = async data => {
+        console.dir(data)
+        await createUserWithEmailAndPassword(data.email, data.password)
+        await updateProfile({ displayName: data.name })
+
+        console.log('profile updated');
+        navigate('/appoinment')
     };
 
 
@@ -149,8 +156,8 @@ const Signup = () => {
                                 class="input input-bordered w-full max-w-xs"
                             />
                             <label class="label">
-                                {errors.password?.type === 'required' && <apan className='label-text-alt text-red-500'>{errors.password.message}</apan>}
-                                {errors.password?.type === 'minLength' && <apan className='label-text-alt text-red-500'>{errors.password.message}</apan>}
+                                {errors.password?.type === 'required' && <span className='label-text-alt text-red-500'>{errors.password.message}</span>}
+                                {errors.password?.type === 'minLength' && <span className='label-text-alt text-red-500'>{errors.password.message}</span>}
                             </label>
 
                         </div>
