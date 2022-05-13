@@ -18,14 +18,14 @@ const Testmonuals = () => {
             img: people1
         },
         {
-            _id: 1,
+            _id: 2,
             name: '',
             review: '',
             location: 'California',
             img: people2
         },
         {
-            _id: 1,
+            _id: 3,
             name: 'Winson Herry',
             review: '',
             location: 'California',

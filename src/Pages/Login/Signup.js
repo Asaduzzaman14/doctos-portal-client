@@ -62,12 +62,12 @@ const Signup = () => {
 
                     <form onSubmit={handleSubmit(onSubmit)}>
 
-                        <div class="form-control w-full max-w-xs">
+                        <div className="form-control w-full max-w-xs">
 
 
-                            <div class="form-control w-full max-w-xs">
-                                <label class="label">
-                                    <span class="label-text">Your Name</span>
+                            <div className="form-control w-full max-w-xs">
+                                <label className="label">
+                                    <span className="label-text">Your Name</span>
                                 </label>
 
                                 {/* name input */}
@@ -87,9 +87,9 @@ const Signup = () => {
 
                                     type="name"
                                     placeholder="Name"
-                                    class="input input-bordered w-full max-w-xs"
+                                    className="input input-bordered w-full max-w-xs"
                                 />
-                                <label class="label">
+                                <label className="label">
                                     {errors.name?.type === 'required' && <span className='label-text-alt text-red-500'>{errors.name.message}</span>}
                                     {errors.name?.type === 'pattern' && <span className='label-text-alt text-red-500'>{errors.name.message}</span>}
                                 </label>
@@ -98,8 +98,8 @@ const Signup = () => {
 
 
                             {/*  */}
-                            <label class="label">
-                                <span class="label-text">Your Email</span>
+                            <label className="label">
+                                <span className="label-text">Your Email</span>
                             </label>
 
                             {/* email input */}
@@ -119,9 +119,9 @@ const Signup = () => {
 
                                 type="email"
                                 placeholder="Email"
-                                class="input input-bordered w-full max-w-xs"
+                                className="input input-bordered w-full max-w-xs"
                             />
-                            <label class="label">
+                            <label className="label">
                                 {errors.email?.type === 'required' && <span className='label-text-alt text-red-500'>{errors.email.message}</span>}
                                 {errors.email?.type === 'pattern' && <span className='label-text-alt text-red-500'>{errors.email.message}</span>}
                             </label>
@@ -130,9 +130,9 @@ const Signup = () => {
 
                         {/* pasword  input*/}
 
-                        <div class="form-control w-full max-w-xs">
-                            <label class="label">
-                                <span class="label-text">Password</span>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Password</span>
 
                             </label>
 
@@ -151,9 +151,9 @@ const Signup = () => {
 
                                 type="password"
                                 placeholder="password"
-                                class="input input-bordered w-full max-w-xs"
+                                className="input input-bordered w-full max-w-xs"
                             />
-                            <label class="label">
+                            <label className="label">
                                 {errors.password?.type === 'required' && <span className='label-text-alt text-red-500'>{errors.password.message}</span>}
                                 {errors.password?.type === 'minLength' && <span className='label-text-alt text-red-500'>{errors.password.message}</span>}
                             </label>
