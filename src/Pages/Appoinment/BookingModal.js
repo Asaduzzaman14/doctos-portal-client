@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-toastify';
 import auth from '../../firebase.init';
 
 const BookingModal = ({ treetment, date, setTreetment }) => {
@@ -25,8 +26,28 @@ const BookingModal = ({ treetment, date, setTreetment }) => {
 
         }
 
+
+        fetch('http://localhost:5000/booking', {
+            "method": "POST",
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success === false) {
+                    return toast.error(`already booking this time  ${formatedDate}`)
+                }
+                toast('booking complete')
+                console.log(data)
+            })
+
+        // close the modal
         setTreetment(null)
     }
+
+
 
 
     return (<div>
