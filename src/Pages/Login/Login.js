@@ -1,16 +1,21 @@
 import React, { useEffect } from 'react';
 import auth from '../../firebase.init';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSendEmailVerification, useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdatePassword } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import Loading from '../Shared/Loading';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
-
 const Login = () => {
+    const [sendPasswordResetEmail, sending, passResetError] = useSendPasswordResetEmail(
+        auth
+    );
+
     const [signInWithGoogle, googleUser, Googleloading, GoogleError] = useSignInWithGoogle(auth);
     const [signInWithEmailAndPassword, user, loading, error,] = useSignInWithEmailAndPassword(auth);
-    const { register, formState: { errors }, handleSubmit } = useForm();
+
+    const { register, formState: { errors }, handleSubmit, getValues } = useForm();
+    const emailvalue = getValues("email");
 
 
     let signInError;
@@ -37,6 +42,7 @@ const Login = () => {
 
     const onSubmit = data => {
         signInWithEmailAndPassword(data.email, data.password)
+
     };
 
 
@@ -125,6 +131,15 @@ const Login = () => {
                         {signInError}
                         <input type="submit" value={'LOGIN'} className='btn w-full text-white' />
                         <Link to='/signup'><small>New To Doctors Porta ? <span className='text-primary'>Create an account</span></small></Link>
+                        <br />
+
+
+                        <small>Forgate password ? <button onClick={async () => {
+                            await sendPasswordResetEmail(emailvalue);
+                            alert('Sent email');
+                        }} className='text-primary'>Resate password</button></small>
+
+
                     </form>
 
 

@@ -7,10 +7,24 @@ const BookingModal = ({ treetment, date, setTreetment }) => {
     const [user, loading] = useAuthState(auth);
     const { _id, name, slots } = treetment
 
+    const formatedDate = format(date, "PP")
+
     const handelFormSubmit = (event) => {
         event.preventDefault()
         const sloat = event.target.sloat.value;
         console.log(sloat, name, _id);
+
+        const booking = {
+            treetmentId: _id,
+            treetment: name,
+            date: formatedDate,
+            sloat: sloat,
+            patient: user.email,
+            patientName: user.displayName,
+            phone: event.target.phone.value,
+
+        }
+
         setTreetment(null)
     }
 
@@ -41,7 +55,7 @@ const BookingModal = ({ treetment, date, setTreetment }) => {
                     </select>
 
                     <input type="text" name='name' value={user.displayName} className="input input-bordered input-secondary w-full max-w-xs" />
-                    <input type="email" name='email' value={user.useremail} className="input input-bordered input-secondary w-full max-w-xs" />
+                    <input type="email" name='email' value={user.email} className="input input-bordered input-secondary w-full max-w-xs" />
                     <input type="number" name='phone' placeholder="Phone" className="input input-bordered input-secondary w-full max-w-xs" />
 
                     <input type="submit" value={'Submit'} className="bg-secondary btn text-white input input-bordered input-secondary w-full max-w-xs" />

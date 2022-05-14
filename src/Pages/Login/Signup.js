@@ -1,6 +1,6 @@
 import React from 'react';
 import auth from '../../firebase.init';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import Loading from '../Shared/Loading';
 import { Link, useNavigate } from 'react-router-dom';
@@ -20,7 +20,12 @@ const Signup = () => {
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
     const navigate = useNavigate()
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
+    const [sendEmailVerification, sending, verifaicationError] = useSendEmailVerification(
+        auth
+    );
+
+
 
     if (user) {
         console.dir(user);
@@ -46,6 +51,7 @@ const Signup = () => {
     const onSubmit = async data => {
         console.dir(data)
         await createUserWithEmailAndPassword(data.email, data.password)
+        await sendEmailVerification()
         await updateProfile({ displayName: data.name })
         navigate('/')
     };
@@ -165,6 +171,7 @@ const Signup = () => {
                         {signInError}
                         <input type="submit" value={'SIGNUP'} className='btn w-full text-white' />
                         <p><small>ALREADY HAVE AN ACCOUNT ? <Link to='/login' className='text-primary'>LOGIN</Link></small></p>
+
                     </form>
 
 
