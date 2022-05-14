@@ -1,19 +1,27 @@
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import Loading from '../Shared/Loading';
 import BookingModal from './BookingModal';
 import Service from './Service';
 
 const AbailableAppoinments = ({ date, setDate }) => {
 
-    const [services, setservices] = useState([])
+    // const [services, setservices] = useState([])
     const [treetment, setTreetment] = useState(null)
 
     const formatedDate = format(date, "PP")
-    useEffect(() => {
-        fetch(`http://localhost:5000/available?date=${formatedDate}`)
-            .then(res => res.json())
-            .then(data => setservices(data))
-    }, [])
+
+    const { isLoading, error, data: services, refetch } = useQuery(['available', formatedDate], () =>
+        fetch(`http://localhost:5000/available?date=${formatedDate}`).then(res =>
+            res.json()
+        )
+    )
+    if (isLoading) {
+        return <Loading></Loading>
+    }
+
+
 
     return (
         <div>
@@ -22,7 +30,7 @@ const AbailableAppoinments = ({ date, setDate }) => {
 
             <div className='grid grid-cols-1 md:grid-cols-6 lg:grid-cols-3 gap-5'>
                 {
-                    services.map(service => <Service
+                    services?.map(service => <Service
                         service={service}
                         key={service._id}
                         setTreetment={setTreetment}
@@ -34,6 +42,7 @@ const AbailableAppoinments = ({ date, setDate }) => {
                 date={date}
                 treetment={treetment}
                 setTreetment={setTreetment}
+                refetch={refetch}
             ></BookingModal>}
 
 
