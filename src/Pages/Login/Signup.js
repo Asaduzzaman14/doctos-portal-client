@@ -4,6 +4,7 @@ import { useCreateUserWithEmailAndPassword, useSendEmailVerification, useSignInW
 import { useForm } from 'react-hook-form';
 import Loading from '../Shared/Loading';
 import { Link, useNavigate } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 
 
 
@@ -25,10 +26,11 @@ const Signup = () => {
         auth
     );
 
+    const [token] = useToken(user || googleUser)
 
 
-    if (user) {
-        console.dir(user);
+    if (token) {
+        navigate('/appoinment')
     }
 
     if (loading || googleLoading || updating) {
@@ -42,18 +44,12 @@ const Signup = () => {
         signInError = <small className='text-red-500'>{error?.message || googleError?.message}</small>
     }
 
-
-    if (user || googleUser) {
-        console.dir(user, googleUser);
-
-    }
-
     const onSubmit = async data => {
         console.dir(data)
         await createUserWithEmailAndPassword(data.email, data.password)
         await sendEmailVerification()
         await updateProfile({ displayName: data.name })
-        navigate('/')
+
     };
 
 
