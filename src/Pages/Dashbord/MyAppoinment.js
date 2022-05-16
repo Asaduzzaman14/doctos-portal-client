@@ -82,5 +82,3 @@ const MyAppoinment = () => {
 
 export default MyAppoinment;
 
-
-// https://meet.google.com/wud-ttxe-nmz
