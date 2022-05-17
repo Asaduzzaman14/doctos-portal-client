@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
+import { toast } from 'react-toastify';
 import Loading from '../Shared/Loading';
 
 const AddDoctors = () => {
@@ -37,14 +38,38 @@ const AddDoctors = () => {
                     const doctor = {
                         name: data.name,
                         email: data.email,
-                        speciality: data.speciality,
+                        specialty: data.specialty,
                         img: img
                     }
+
+
+
                     // send my databse
+                    console.log('doctor details', doctor);
+
+                    fetch('http://localhost:5000/doctor', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(doctor)
+
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.insertedId) {
+                                toast.success('Doctor added Successfully')
+                                // reset()
+                            }
+                            else {
+                                toast.error('Faield to add doctor')
+                            }
+                        })
 
 
                 }
-                console.log('imgbb', result.data)
+                // console.log('imgbb', result.data)
             })
 
     };
@@ -130,7 +155,7 @@ const AddDoctors = () => {
                         <span className="label-text">Speciality</span>
 
                     </label>
-                    <select class="select w-full max-w-xs input-bordered">
+                    <select {...register('specialty')} class="select input-bordered w-full max-w-xs">
 
                         {
                             services.map(service => <option
@@ -145,7 +170,7 @@ const AddDoctors = () => {
                 {/* img add */}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">Your Name</span>
+                        <span className="label-text">Image File</span>
                     </label>
 
                     {/* photo input */}
