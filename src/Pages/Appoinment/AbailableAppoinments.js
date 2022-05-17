@@ -13,7 +13,7 @@ const AbailableAppoinments = ({ date, setDate }) => {
     const formatedDate = format(date, "PP")
 
     const { isLoading, error, data: services, refetch } = useQuery(['available', formatedDate], () =>
-        fetch(`http://localhost:5000/available?date=${formatedDate}`).then(res =>
+        fetch(`https://fathomless-badlands-83387.herokuapp.com/available?date=${formatedDate}`).then(res =>
             res.json()
         )
     )
