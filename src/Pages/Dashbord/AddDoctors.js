@@ -7,12 +7,45 @@ const AddDoctors = () => {
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const { data: services, isLoading } = useQuery('services', (req, res) => fetch('http://localhost:5000/service').then(res => res.json()).then())
+    const imagestorageKey = '22256484ee99d529c0cbd5a2e6197de5'
+
+
+
+    /**
+ * 3wayes to store image
+ * 1> third party storage   // free open public storage is ok for practis project
+ * 2> your won storage
+ * 3> Database: Mongodb
+ * 
+ * YUP to validate file : search YUP file validation for react from hook
+ */
 
 
     const onSubmit = async data => {
-        console.dir(data)
+        const image = data.image[0]
+        const fromdata = new FormData()
+        fromdata.append('image', image)
+        const url = `https://api.imgbb.com/1/upload?key=${imagestorageKey}`
+        fetch(url, {
+            method: "POST",
+            body: fromdata
+        })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    const img = result.data.url;
+                    const doctor = {
+                        name: data.name,
+                        email: data.email,
+                        speciality: data.speciality,
+                        img: img
+                    }
+                    // send my databse
 
 
+                }
+                console.log('imgbb', result.data)
+            })
 
     };
     if (isLoading) {
