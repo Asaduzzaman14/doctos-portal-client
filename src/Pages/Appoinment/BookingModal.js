@@ -57,7 +57,7 @@ const BookingModal = ({ treetment, date, setTreetment, refetch }) => {
         <input type="checkbox" id="booking-modal" className="modal-toggle" />
         <div className="modal modal-bottom sm:modal-middle">
             <div className="modal-box">
-                <label htmlhtmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                <label htmlhtmlfor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
 
                 <h3 className="font-bold text-2xl text-secondary">{name}</h3>
 
