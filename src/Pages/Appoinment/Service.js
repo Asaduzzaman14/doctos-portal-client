@@ -18,7 +18,7 @@ const Service = ({ service, setTreetment }) => {
                 <div className="card-actions justify-center">
 
 
-                    <label onClick={() => setTreetment(service)} htmlhtmlfor="booking-modal" className="btn btn-secondary text-white  modal-button">Book Appointment</label>
+                    <label onClick={() => setTreetment(service)} for="booking-modal" className="btn btn-secondary text-white  modal-button">Book Appointment</label>
 
                 </div>
             </div>
@@ -28,3 +28,4 @@ const Service = ({ service, setTreetment }) => {
 
 export default Service;
 
+// https://meet.google.com/inj-rwgd-awc
