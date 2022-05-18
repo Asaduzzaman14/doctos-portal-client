@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Service = ({ service, setTreetment }) => {
-    const { name, slots } = service
+    const { name, slots, price } = service
     return (
         <div className="card lg:max-w-lg bg-base-100 shadow-xl">
             <div className="card-body">
@@ -14,7 +14,7 @@ const Service = ({ service, setTreetment }) => {
                 <p>{slots.length > 0 ? <span>{slots[0]}</span> : <span>{ }</span>}</p>
 
                 <p>{slots.length} {!slots.length ? 'SPACE' : 'SPACES'} AVALILABLE</p>
-
+                <p><small>Price: ${price}</small></p>
                 <div className="card-actions justify-center">
 
 
@@ -27,3 +27,4 @@ const Service = ({ service, setTreetment }) => {
 };
 
 export default Service;
+
