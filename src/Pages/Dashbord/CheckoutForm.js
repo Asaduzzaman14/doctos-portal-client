@@ -9,9 +9,10 @@ const CheckoutForm = (props) => {
     const elements = useElements()
     const [cardError, setCardError] = useState('')
     const [success, setSuccess] = useState('')
+    const [Processing, setProcessing] = useState(false)
     const [transaction, setTransaction] = useState('')
     const [clientSecret, setClientSecret] = useState('')
-    const { price, paitent, patientName } = props?.appointment
+    const { _id, price, paitent, patientName } = props?.appointment
 
     useEffect(() => {
         fetch('http://localhost:5000/create-payment-intent', {
@@ -54,7 +55,7 @@ const CheckoutForm = (props) => {
 
         setCardError(error?.message || '')
         setSuccess('')
-
+        setProcessing(true)
         // confirm card payment
         const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
@@ -68,12 +69,38 @@ const CheckoutForm = (props) => {
 
         if (intentError) {
             setCardError(intentError.message)
-            success('')
+            setProcessing(false)
         } else {
             setCardError('')
             setTransaction(paymentIntent.id)
             console.log(paymentIntent);
             setSuccess('your payment is completed')
+
+            // store payment on database
+            const payment = {
+                appoinment: _id,
+                transaction: paymentIntent.id
+            }
+            console.log('This is payment', payment);
+            fetch(`http://localhost:5000/booking/${_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                },
+
+                // method: "PATCH",
+                // headers: {
+                //     'content-type': 'application/json',
+                //     authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                // },
+                body: JSON.stringify(payment)
+            }).then(res => res.json())
+                .then(data => {
+                    setProcessing(false);
+                    console.log('patch complete', data);
+                })
+
         }
     }
     return (
@@ -96,7 +123,7 @@ const CheckoutForm = (props) => {
                         },
                     }}
                 />
-                <button className='btn btn-success btn-sm mt-4' type="submit" disabled={!stripe || !clientSecret}>
+                <button className='btn btn-success btn-sm mt-4' type="submit" disabled={!stripe || !clientSecret || success}>
                     Pay
                 </button>
             </form>

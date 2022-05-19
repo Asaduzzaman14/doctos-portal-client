@@ -15,7 +15,6 @@ const Payment = () => {
     const { id } = useParams()
     const url = `http://localhost:5000/booking/${id}`
 
-    // const { data: appointment?, isLoading } = useQuery(['booking', id], () => fetch(url, {
     const { data: appointment, isLoading } = useQuery(['booking', id], () => fetch(url, {
         method: 'GET',
         headers: {
@@ -28,7 +27,7 @@ const Payment = () => {
     if (isLoading) {
         return <Loading></Loading>
     }
-    console.log('appointment details', appointment);
+    // console.log('appointment details', appointment);
 
     return (
         <>
