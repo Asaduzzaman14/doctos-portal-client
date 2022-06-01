@@ -6,12 +6,12 @@ import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
 
 const MyAppoinment = () => {
-    const [user] = useAuthState(auth)
-
-    // console.log(user);
     const [appoinment, setAppoinments] = useState([])
-
+    const [user] = useAuthState(auth)
     const navigate = useNavigate()
+
+
+    console.log('hello', user);
 
     useEffect(() => {
         if (user) {
@@ -29,7 +29,6 @@ const MyAppoinment = () => {
                         navigate('/')
                     }
                     return res.json()
-
                 })
                 .then(data => {
 
@@ -37,7 +36,7 @@ const MyAppoinment = () => {
                 })
         }
 
-    }, [user])
+    }, [user, navigate])
 
 
     if (!appoinment) {
@@ -48,7 +47,7 @@ const MyAppoinment = () => {
 
     return (
         <div>
-            <h2 className='text-3xl'>This is my appoinment:{appoinment?.length} </h2>
+            <h2 className='text-3xl'>This is my appoinments:{appoinment?.length} </h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     {/* <!-- head --> */}
@@ -67,6 +66,7 @@ const MyAppoinment = () => {
 
                         {
                             appoinment?.map((ap, index) => <tr>
+
                                 <th>{index + 1}</th>
                                 <td>{ap.patientName}</td>
                                 <td>{ap.date}</td>

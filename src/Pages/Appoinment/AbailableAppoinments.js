@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading';
 import BookingModal from './BookingModal';
@@ -7,16 +7,14 @@ import Service from './Service';
 
 const AbailableAppoinments = ({ date, setDate }) => {
 
-    // const [services, setservices] = useState([])
     const [treetment, setTreetment] = useState(null)
 
     const formatedDate = format(date, "PP")
 
-    const { isLoading, error, data: services, refetch } = useQuery(['available', formatedDate], () =>
-        fetch(`https://fathomless-badlands-83387.herokuapp.com/available?date=${formatedDate}`).then(res =>
-            res.json()
-        )
+    const { isLoading, data: services, refetch } = useQuery(['available', formatedDate], () =>
+        fetch(`https://fathomless-badlands-83387.herokuapp.com/available?date=${formatedDate}`).then(res => res.json())
     )
+
     if (isLoading) {
         return <Loading></Loading>
     }

@@ -30,18 +30,16 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />}></Route>
 
-        <Route path='/about' element={<RequirAuth>
-          <About />
-        </RequirAuth>}></Route>
+        <Route path='/about' element={<About />}></Route>
 
         <Route path='/appoinment' element={<RequirAuth>
           <Appoinment />
         </RequirAuth>}></Route>
 
-        <Route path='/dashbord' element={<RequirAuth>
-          <Dashbord />
-        </RequirAuth>}
-        >
+
+
+        <Route path='dashbord' element={<RequirAuth> <Dashbord />  </RequirAuth>} >
+
           <Route index element={<MyAppoinment></MyAppoinment>}></Route>
           <Route path='myreview' element={<MyReview></MyReview>}></Route>
           <Route path='myhistory' element={<MyHIstory></MyHIstory>}></Route>

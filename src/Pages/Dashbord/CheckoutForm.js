@@ -12,6 +12,7 @@ const CheckoutForm = (props) => {
     const [Processing, setProcessing] = useState(false)
     const [transaction, setTransaction] = useState('')
     const [clientSecret, setClientSecret] = useState('')
+
     const { _id, price, paitent, patientName } = props?.appointment
 
     useEffect(() => {
@@ -39,7 +40,7 @@ const CheckoutForm = (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!stripe || !elements) {
-            return
+            return;
         }
 
         const card = elements.getElement(CardElement);
@@ -56,6 +57,7 @@ const CheckoutForm = (props) => {
         setCardError(error?.message || '')
         setSuccess('')
         setProcessing(true)
+
         // confirm card payment
         const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
@@ -88,13 +90,8 @@ const CheckoutForm = (props) => {
                     'content-type': 'application/json',
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 },
-
-                // method: "PATCH",
-                // headers: {
-                //     'content-type': 'application/json',
-                //     authorization: `Bearer ${localStorage.getItem('accessToken')}`
-                // },
                 body: JSON.stringify(payment)
+
             }).then(res => res.json())
                 .then(data => {
                     setProcessing(false);

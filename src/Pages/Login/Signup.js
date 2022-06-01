@@ -10,7 +10,6 @@ import useToken from '../../hooks/useToken';
 
 const Signup = () => {
 
-
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [
         createUserWithEmailAndPassword,
@@ -29,9 +28,6 @@ const Signup = () => {
     const [token] = useToken(user || googleUser)
 
 
-    if (token) {
-        navigate('/appoinment')
-    }
 
     if (loading || googleLoading || updating) {
         return <Loading></Loading>
@@ -45,12 +41,14 @@ const Signup = () => {
     }
 
     const onSubmit = async data => {
-        console.dir(data)
         await createUserWithEmailAndPassword(data.email, data.password)
         await sendEmailVerification()
         await updateProfile({ displayName: data.name })
 
     };
+    if (token) {
+        navigate('/appoinment')
+    }
 
 
     return (

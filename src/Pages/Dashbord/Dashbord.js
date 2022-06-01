@@ -6,23 +6,24 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 const Dashbord = () => {
-    const [user] = useAuthState(auth)
 
+    const [user] = useAuthState(auth)
     const [admin] = useAdmin(user)
 
     return (
         <div className="drawer drawer-mobile">
             <input id="dashboard-sidebar" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col ">
+
                 {/* <!-- Page content here --> */}
                 <h2 className='text-4xl text-cyan-600'>Welcome to Your  Dashboard</h2>
                 <Outlet></Outlet>
-
 
             </div>
             <div className="drawer-side">
                 <label htmlFor="dashboard-sidebar" className="drawer-overlay"></label>
                 <ul className="menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content font-serif ">
+
                     {/* <!-- Sidebar content here --> */}
                     <li><Link to=''>My Appoinment</Link></li>
                     <li><Link to='myreview'>My Review</Link></li>
