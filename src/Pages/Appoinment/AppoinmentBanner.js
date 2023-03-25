@@ -12,10 +12,13 @@ const AppoinmentBanner = ({ date, setDate }) => {
         <div style={{
             background: `url(${bg})`,
             backgroundSize: 'cover'
+
         }} className="hero min-h-screen ">
             <div className="hero-content flex-col lg:flex-row-reverse">
-                <img src={chair} className="max-w-lg rounded-lg shadow-2xl" alt='chair' />
-                <div>
+                <div className='p-3'>
+                    <img src={chair} className="img-fluid rounded-lg shadow-2xl" alt='chair' />
+                </div>
+                <div className=''>
                     <DayPicker
                         mode="single"
                         selected={date}

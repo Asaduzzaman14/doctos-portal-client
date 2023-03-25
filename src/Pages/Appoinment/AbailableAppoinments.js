@@ -22,11 +22,11 @@ const AbailableAppoinments = ({ date, setDate }) => {
 
 
     return (
-        <div>
+        <div className=''>
             <p className='text-secondary text-2xl text-center mt-6'>Abilable Appoinments on {format(date, "PP")}
             </p>
 
-            <div className='grid grid-cols-1 md:grid-cols-6 lg:grid-cols-3 gap-5'>
+            <div className='px-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mx-auto'>
                 {
                     services?.map(service => <Service
                         service={service}

@@ -10,7 +10,7 @@ import Testmonuals from './Testmonuals';
 const Home = () => {
     return (
         <>
-            <div className='px-12'>
+            <div className='px-4 lg:px-8'>
                 <Banner></Banner>
                 <Info></Info>
                 <Services></Services>
