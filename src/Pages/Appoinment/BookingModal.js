@@ -13,7 +13,8 @@ const BookingModal = ({ treetment, date, setTreetment, refetch }) => {
     const handelFormSubmit = (event) => {
         event.preventDefault()
         const sloat = event.target.sloat.value;
-        console.log(sloat, name, _id);
+        const phone = event.target.phone.value;
+        console.log(sloat, name, _id, phone);
 
         const booking = {
             treetmentId: _id,
@@ -28,7 +29,7 @@ const BookingModal = ({ treetment, date, setTreetment, refetch }) => {
         }
         console.log(booking);
 
-        fetch('https://fathomless-badlands-83387.herokuapp.com/booking', {
+        fetch('http://localhost:5000/booking', {
             "method": "POST",
             headers: {
                 'Content-type': 'application/json',

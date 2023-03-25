@@ -21,7 +21,7 @@ import AddDoctors from './Pages/Dashbord/AddDoctors';
 import ManageDoctors from './Pages/Dashbord/ManageDoctors';
 import Payment from './Pages/Dashbord/Payment';
 
-
+// https://docotrs-portal-server.vercel.app/
 
 function App() {
   return (
