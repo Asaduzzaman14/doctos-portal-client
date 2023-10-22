@@ -12,7 +12,7 @@ const AbailableAppoinments = ({ date, setDate }) => {
     const formatedDate = format(date, "PP")
 
     const { isLoading, data: services, refetch } = useQuery(['available', formatedDate], () =>
-        fetch(`http://localhost:5000/available?date=${formatedDate}`).then(res => res.json())
+        fetch(`https://docotrs-portal-server.vercel.app/available?date=${formatedDate}`).then(res => res.json())
     )
 
     if (isLoading) {

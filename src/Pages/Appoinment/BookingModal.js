@@ -29,7 +29,7 @@ const BookingModal = ({ treetment, date, setTreetment, refetch }) => {
         }
         console.log(booking);
 
-        fetch('http://localhost:5000/booking', {
+        fetch('https://docotrs-portal-server.vercel.app/booking', {
             "method": "POST",
             headers: {
                 'Content-type': 'application/json',

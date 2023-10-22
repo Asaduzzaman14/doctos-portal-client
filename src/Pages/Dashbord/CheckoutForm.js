@@ -16,7 +16,7 @@ const CheckoutForm = (props) => {
     const { _id, price, paitent, patientName } = props?.appointment
 
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://docotrs-portal-server.vercel.app/create-payment-intent', {
             method: "POST",
             headers: {
                 "content-type": " application/json",
@@ -84,7 +84,7 @@ const CheckoutForm = (props) => {
                 transaction: paymentIntent.id
             }
             console.log('This is payment', payment);
-            fetch(`http://localhost:5000/booking/${_id}`, {
+            fetch(`https://docotrs-portal-server.vercel.app/booking/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',

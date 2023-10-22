@@ -24,8 +24,10 @@ import Payment from './Pages/Dashbord/Payment';
 // https://docotrs-portal-server.vercel.app/
 
 function App() {
+
+
   return (
-    <div className='max-w-7xl mx-auto'>
+    <div className=' mx-auto'>
       <Navbar></Navbar>
       <Routes>
         <Route path='/' element={<Home />}></Route>

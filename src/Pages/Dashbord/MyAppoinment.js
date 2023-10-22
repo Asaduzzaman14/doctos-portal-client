@@ -11,11 +11,11 @@ const MyAppoinment = () => {
     const navigate = useNavigate()
 
 
-    console.log('hello', user);
+    console.log('hello', user.email);
 
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/booking?patient=${user.email}`, {
+            fetch(`https://docotrs-portal-server.vercel.app/booking?patient=${user.email}`, {
                 method: 'GET',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')} `
@@ -47,7 +47,7 @@ const MyAppoinment = () => {
 
     return (
         <div>
-            <h2 className='text-3xl'>This is my appoinments:{appoinment?.length} </h2>
+            <h2 className='text-3xl text-center py-3'>This is my appoinments:{appoinment?.length} </h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     {/* <!-- head --> */}

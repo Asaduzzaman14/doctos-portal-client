@@ -7,7 +7,7 @@ import Loading from '../Shared/Loading';
 const AddDoctors = () => {
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
-    const { data: services, isLoading } = useQuery('services', (req, res) => fetch('http://localhost:5000/service').then(res => res.json()).then())
+    const { data: services, isLoading } = useQuery('services', (req, res) => fetch('https://docotrs-portal-server.vercel.app/service').then(res => res.json()).then())
     const imagestorageKey = '22256484ee99d529c0cbd5a2e6197de5'
 
 
@@ -47,7 +47,7 @@ const AddDoctors = () => {
                     // send my databse
                     console.log('doctor details', doctor);
 
-                    fetch('http://localhost:5000/doctor', {
+                    fetch('https://docotrs-portal-server.vercel.app/doctor', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
