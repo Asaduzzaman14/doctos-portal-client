@@ -11,16 +11,16 @@ const Dashbord = () => {
   return (
     <div className='drawer drawer-mobile'>
       <input id='dashboard-sidebar' type='checkbox' className='drawer-toggle' />
-      <div className='drawer-content flex flex-col '>
+      <div className='drawer-content flex flex-col px-2'>
         {/* <!-- Page content here --> */}
         <h2 className='text-4xl font-semibold text-center text-gray-600'>
           Welcome to Dashboard
         </h2>
         <Outlet></Outlet>
       </div>
-      <div className='drawer-side'>
+      <div className='drawer-side '>
         <label htmlFor='dashboard-sidebar' className='drawer-overlay'></label>
-        <ul className='menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content font-serif '>
+        <ul className=' menu p-4 overflow-y-auto w-48 bg-base-300 text-base-content font-serif '>
           {/* <!-- Sidebar content here --> */}
           <li>
             <Link to=''>My Appoinment</Link>

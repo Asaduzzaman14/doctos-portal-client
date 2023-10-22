@@ -1,64 +1,66 @@
-import React, { useState } from 'react';
-import { useQuery } from 'react-query';
-import Loading from '../Shared/Loading';
-import DeleteConfirmation from './DeleteConfirmation';
-import DoctorRow from './DoctorRow';
+import React, { useState } from "react";
+import { useQuery } from "react-query";
+import Loading from "../Shared/Loading";
+import DeleteConfirmation from "./DeleteConfirmation";
+import DoctorRow from "./DoctorRow";
 
 const ManageDoctors = () => {
+  const [deletingDoctor, setDeletingDoctor] = useState(null);
 
-    const [deletingDoctor, setDeletingDoctor] = useState(null)
+  const {
+    data: doctors,
+    isLoading,
+    refetch,
+  } = useQuery("doctors", () =>
+    fetch("https://docotrs-portal-server.vercel.app/doctor", {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }).then((res) => res.json())
+  );
 
-    const { data: doctors, isLoading, refetch } = useQuery('doctors', () => fetch('https://docotrs-portal-server.vercel.app/doctor', {
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
 
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        },
+  return (
+    <div className=''>
+      <h2>Manage Doctors: {doctors?.length}</h2>
 
-    }).then(res => res.json()))
+      <div className='overflow-x-auto'>
+        <table className='table w-full'>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Avater</th>
+              <th>NAme</th>
+              <th>Speciality</th>
+              <th>Action</th>
+            </tr>
+          </thead>
 
-    if (isLoading) {
-        return <Loading></Loading>
-    }
-
-    return (
-        <div>
-            <h2>Thsi is manage doctors page {doctors?.length}</h2>
-
-            <div className="overflow-x-auto">
-                <table className="table w-full">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Avater</th>
-                            <th>NAme</th>
-                            <th>Speciality</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {doctors?.map((doctor, index) => <DoctorRow
-                            doctor={doctor}
-                            index={index}
-                            refetch={refetch}
-                            key={doctor._id}
-                            setDeletingDoctor={setDeletingDoctor}
-                        ></DoctorRow>)
-
-                        }
-
-                    </tbody>
-
-
-                </table>
-            </div>
-            {deletingDoctor && <DeleteConfirmation
-                setDeletingDoctor={deletingDoctor}
+          <tbody>
+            {doctors?.map((doctor, index) => (
+              <DoctorRow
+                doctor={doctor}
+                index={index}
                 refetch={refetch}
-                setDeletingdoctor={setDeletingDoctor}
-            ></DeleteConfirmation>}
-        </div>
-    );
+                key={doctor._id}
+                setDeletingDoctor={setDeletingDoctor}
+              ></DoctorRow>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {deletingDoctor && (
+        <DeleteConfirmation
+          setDeletingDoctor={deletingDoctor}
+          refetch={refetch}
+          setDeletingdoctor={setDeletingDoctor}
+        ></DeleteConfirmation>
+      )}
+    </div>
+  );
 };
 
 export default ManageDoctors;
